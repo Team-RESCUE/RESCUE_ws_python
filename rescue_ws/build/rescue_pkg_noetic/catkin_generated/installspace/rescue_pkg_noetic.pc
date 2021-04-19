@@ -1,0 +1,8 @@
+prefix=/home/john/rescue_ws/install
+
+Name: rescue_pkg_noetic
+Description: Description of rescue_pkg_noetic
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lrescue_pkg_noetic
+Requires: roscpp rospy std_msgs message_runtime

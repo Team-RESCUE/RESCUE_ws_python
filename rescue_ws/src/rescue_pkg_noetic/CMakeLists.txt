@@ -52,6 +52,7 @@ add_message_files(
    FILES
    Num.msg
    location_command.msg
+   co2.msg
  )
 
 ## Generate services in the 'srv' folder

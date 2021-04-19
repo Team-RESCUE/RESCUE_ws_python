@@ -3,6 +3,8 @@
   (:export
    "<NUM>"
    "NUM"
+   "<CO2>"
+   "CO2"
    "<LOCATION_COMMAND>"
    "LOCATION_COMMAND"
   ))

@@ -519,6 +519,19 @@ std_msgs_generate_messages_py/fast:
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named _rescue_pkg_noetic_generate_messages_check_deps_co2
+
+# Build rule for target.
+_rescue_pkg_noetic_generate_messages_check_deps_co2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _rescue_pkg_noetic_generate_messages_check_deps_co2
+.PHONY : _rescue_pkg_noetic_generate_messages_check_deps_co2
+
+# fast build rule for target.
+_rescue_pkg_noetic_generate_messages_check_deps_co2/fast:
+	$(MAKE) -f rescue_pkg_noetic/CMakeFiles/_rescue_pkg_noetic_generate_messages_check_deps_co2.dir/build.make rescue_pkg_noetic/CMakeFiles/_rescue_pkg_noetic_generate_messages_check_deps_co2.dir/build
+.PHONY : _rescue_pkg_noetic_generate_messages_check_deps_co2/fast
+
+#=============================================================================
 # Target rules for targets named rescue_pkg_noetic_genlisp
 
 # Build rule for target.
@@ -701,6 +714,7 @@ help:
 	@echo "... _rescue_pkg_noetic_generate_messages_check_deps_AddTwoInts"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... std_msgs_generate_messages_py"
+	@echo "... _rescue_pkg_noetic_generate_messages_check_deps_co2"
 	@echo "... rescue_pkg_noetic_genlisp"
 	@echo "... roscpp_generate_messages_py"
 	@echo "... rescue_pkg_noetic_gennodejs"

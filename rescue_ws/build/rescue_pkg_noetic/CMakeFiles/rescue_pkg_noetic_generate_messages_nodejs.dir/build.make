@@ -55,6 +55,7 @@ include rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs.
 
 rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/Num.js
 rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/location_command.js
+rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/co2.js
 rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/srv/AddTwoInts.js
 
 
@@ -69,14 +70,21 @@ rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs: /home/r
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from rescue_pkg_noetic/location_command.msg"
 	cd /home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/location_command.msg -Irescue_pkg_noetic:/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p rescue_pkg_noetic -o /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg
 
+/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/co2.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
+/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/co2.js: /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/co2.msg
+/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/co2.js: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from rescue_pkg_noetic/co2.msg"
+	cd /home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/co2.msg -Irescue_pkg_noetic:/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p rescue_pkg_noetic -o /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg
+
 /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/srv/AddTwoInts.js: /opt/ros/noetic/lib/gennodejs/gen_nodejs.py
 /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/srv/AddTwoInts.js: /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from rescue_pkg_noetic/AddTwoInts.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from rescue_pkg_noetic/AddTwoInts.srv"
 	cd /home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv -Irescue_pkg_noetic:/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p rescue_pkg_noetic -o /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/srv
 
 rescue_pkg_noetic_generate_messages_nodejs: rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs
 rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/Num.js
 rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/location_command.js
+rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/msg/co2.js
 rescue_pkg_noetic_generate_messages_nodejs: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/gennodejs/ros/rescue_pkg_noetic/srv/AddTwoInts.js
 rescue_pkg_noetic_generate_messages_nodejs: rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_nodejs.dir/build.make
 

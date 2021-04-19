@@ -41,6 +41,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rescue_pkg_noetic/msg" TYPE FILE FILES
     "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/Num.msg"
     "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/location_command.msg"
+    "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/co2.msg"
     )
 endif()
 

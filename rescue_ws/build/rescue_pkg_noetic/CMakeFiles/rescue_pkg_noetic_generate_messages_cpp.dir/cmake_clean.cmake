@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/john/rescue_ws/devel/include/rescue_pkg_noetic/AddTwoInts.h"
-  "/home/john/rescue_ws/devel/include/rescue_pkg_noetic/Num.h"
+  "/home/ryan/RESCUE_ws_python/rescue_ws/devel/include/rescue_pkg_noetic/AddTwoInts.h"
+  "/home/ryan/RESCUE_ws_python/rescue_ws/devel/include/rescue_pkg_noetic/Num.h"
   "CMakeFiles/rescue_pkg_noetic_generate_messages_cpp"
 )
 

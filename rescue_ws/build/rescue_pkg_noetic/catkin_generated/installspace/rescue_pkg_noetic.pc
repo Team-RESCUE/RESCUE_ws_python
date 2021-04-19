@@ -1,4 +1,4 @@
-prefix=/home/john/rescue_ws/install
+prefix=/home/ryan/RESCUE_ws_python/rescue_ws/install
 
 Name: rescue_pkg_noetic
 Description: Description of rescue_pkg_noetic

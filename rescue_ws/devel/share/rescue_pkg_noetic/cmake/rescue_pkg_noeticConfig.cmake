@@ -67,14 +67,14 @@ set(rescue_pkg_noetic_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(rescue_pkg_noetic_SOURCE_PREFIX /home/john/rescue_ws/src/rescue_pkg_noetic)
-  set(rescue_pkg_noetic_DEVEL_PREFIX /home/john/rescue_ws/devel)
+  set(rescue_pkg_noetic_SOURCE_PREFIX /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic)
+  set(rescue_pkg_noetic_DEVEL_PREFIX /home/ryan/RESCUE_ws_python/rescue_ws/devel)
   set(rescue_pkg_noetic_INSTALL_PREFIX "")
   set(rescue_pkg_noetic_PREFIX ${rescue_pkg_noetic_DEVEL_PREFIX})
 else()
   set(rescue_pkg_noetic_SOURCE_PREFIX "")
   set(rescue_pkg_noetic_DEVEL_PREFIX "")
-  set(rescue_pkg_noetic_INSTALL_PREFIX /home/john/rescue_ws/install)
+  set(rescue_pkg_noetic_INSTALL_PREFIX /home/ryan/RESCUE_ws_python/rescue_ws/install)
   set(rescue_pkg_noetic_PREFIX ${rescue_pkg_noetic_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(rescue_pkg_noetic_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/john/rescue_ws/devel/include;/home/john/rescue_ws/src/rescue_pkg_noetic/include " STREQUAL " ")
+if(NOT "/home/ryan/RESCUE_ws_python/rescue_ws/devel/include;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/include " STREQUAL " ")
   set(rescue_pkg_noetic_INCLUDE_DIRS "")
-  set(_include_dirs "/home/john/rescue_ws/devel/include;/home/john/rescue_ws/src/rescue_pkg_noetic/include")
+  set(_include_dirs "/home/ryan/RESCUE_ws_python/rescue_ws/devel/include;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/include")
   if(NOT " " STREQUAL " ")
     set(_report "Check the issue tracker '' and consider creating a ticket if the problem has not been reported yet.")
   elseif(NOT " " STREQUAL " ")
@@ -110,7 +110,7 @@ if(NOT "/home/john/rescue_ws/devel/include;/home/john/rescue_ws/src/rescue_pkg_n
         message(FATAL_ERROR "Project 'rescue_pkg_noetic' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  ${_report}")
       endif()
     else()
-      message(FATAL_ERROR "Project 'rescue_pkg_noetic' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/john/rescue_ws/src/rescue_pkg_noetic/${idir}'.  ${_report}")
+      message(FATAL_ERROR "Project 'rescue_pkg_noetic' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/${idir}'.  ${_report}")
     endif()
     _list_append_unique(rescue_pkg_noetic_INCLUDE_DIRS ${include})
   endforeach()
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/john/rescue_ws/devel/lib;/home/john/rescue_ws/devel/lib;/opt/ros/noetic/lib)
+    foreach(path /home/ryan/RESCUE_ws_python/rescue_ws/devel/lib;/home/ryan/RESCUE_ws_python/rescue_ws/devel/lib;/opt/ros/noetic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)

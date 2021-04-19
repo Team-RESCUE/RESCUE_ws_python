@@ -7,5 +7,5 @@
 # new environment variables
 
 # modified environment variables
-export PWD='/home/john/rescue_ws/build'
-export PYTHONPATH="/home/john/rescue_ws/devel/lib/python3/dist-packages:$PYTHONPATH"
+export PWD='/home/ryan/RESCUE_ws_python/rescue_ws/build'
+export ROS_PACKAGE_PATH='/home/john/rescue_ws/src:/home/ryan/RESCUE_ws_python/rescue_ws/src:/opt/ros/noetic/share'

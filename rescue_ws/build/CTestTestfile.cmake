@@ -1,6 +1,6 @@
 # CMake generated Testfile for 
-# Source directory: /home/john/rescue_ws/src
-# Build directory: /home/john/rescue_ws/build
+# Source directory: /home/ryan/RESCUE_ws_python/rescue_ws/src
+# Build directory: /home/ryan/RESCUE_ws_python/rescue_ws/build
 # 
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.

@@ -23,6 +23,8 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/CMakeLists.txt"
   "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/package.xml"
   "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/scripts/listener.py"
+  "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/scripts/marble_dummy.py"
+  "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/scripts/rescue_main.py"
   "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/scripts/talker.py"
   "/opt/ros/noetic/share/catkin/cmake/all.cmake"
   "/opt/ros/noetic/share/catkin/cmake/assert.cmake"

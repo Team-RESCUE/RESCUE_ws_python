@@ -1,0 +1,4 @@
+<launch>
+  <node name="marble_dummy" pkg="rescue_pkg_noetic" type="marble_dummy.py" output="screen"/>
+  <node name="rescue_main" pkg="rescue_pkg_noetic" type="rescue_main.py" output="screen"/>
+</launch>

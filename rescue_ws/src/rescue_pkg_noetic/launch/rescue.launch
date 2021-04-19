@@ -1,4 +1,15 @@
 <launch>
+  <arg name="type_flag" default="a" />
+  <arg name="coord1" default="0" />
+  <arg name="coord2" default="0" />
+  <arg name="coord3" default="0" />
+    
+  
+  <param name="type" value="$(arg type_flag)" />
+  <param name="coord1" value="$(arg coord1)" />
+  <param name="coord2" value="$(arg coord2)" />
+  <param name="coord3" value="$(arg coord3)" />
+  
   <node name="marble_dummy" pkg="rescue_pkg_noetic" type="marble_dummy.py" output="screen"/>
   <node name="rescue_main" pkg="rescue_pkg_noetic" type="rescue_main.py" output="screen"/>
 </launch>

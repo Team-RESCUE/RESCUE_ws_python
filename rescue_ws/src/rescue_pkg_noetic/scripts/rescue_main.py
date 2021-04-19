@@ -6,7 +6,7 @@ from rescue_pkg_noetic.msg import location_command
 from rescue_pkg_noetic.msg import co2
 
 def loc_callback(location_msg):
-    rospy.loginfo('Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
+    rospy.loginfo('RESCUE: Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
     # return_msg = 'RETURN'
     # rospy.loginfo('Return message sent: %s',return_msg)
     # return_pub = rospy.Publisher('return', String, queue_size=10)
@@ -35,9 +35,26 @@ def init():
 def spin():
     co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
 
+    param = rospy.get_param('type')
+    coord1 = rospy.get_param('coord1')
+    coord2 = rospy.get_param('coord2')
+    coord3 = rospy.get_param('coord3')
+
+
+    if param == "a":
+        print("Given angle and extension distance input")
+        print("Given coordinates:",coord1,"deg,",coord2,"deg,",coord3,"m")
+    elif param =="c":
+        print("Given relative inertial coordinate input")
+        print("Given coordinates:",coord1,"m,",coord2,"m,",coord3,"m")
+    else:
+        print("Given invalid type flag")
+    
+    print("\n")
+
     co2_msg = co2()
     co2_msg.ppm = 1400
-    rospy.loginfo("CO2 data sent: %4.2f ppm",co2_msg.ppm)
+    rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
 
     rospy.sleep(2)
     co2_pub.publish(co2_msg)

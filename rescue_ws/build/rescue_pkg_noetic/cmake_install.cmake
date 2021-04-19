@@ -38,7 +38,10 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rescue_pkg_noetic/msg" TYPE FILE FILES "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/Num.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rescue_pkg_noetic/msg" TYPE FILE FILES
+    "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/Num.msg"
+    "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/location_command.msg"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)

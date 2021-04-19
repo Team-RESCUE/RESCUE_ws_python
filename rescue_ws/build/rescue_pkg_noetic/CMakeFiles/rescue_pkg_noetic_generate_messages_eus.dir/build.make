@@ -54,6 +54,7 @@ CMAKE_BINARY_DIR = /home/ryan/RESCUE_ws_python/rescue_ws/build
 include rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus.dir/progress.make
 
 rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/Num.l
+rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/location_command.l
 rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/srv/AddTwoInts.l
 rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/manifest.l
 
@@ -63,17 +64,24 @@ rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus: /home/ryan
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from rescue_pkg_noetic/Num.msg"
 	cd /home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/Num.msg -Irescue_pkg_noetic:/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p rescue_pkg_noetic -o /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg
 
+/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/location_command.l: /opt/ros/noetic/lib/geneus/gen_eus.py
+/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/location_command.l: /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/location_command.msg
+/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/location_command.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from rescue_pkg_noetic/location_command.msg"
+	cd /home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/location_command.msg -Irescue_pkg_noetic:/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p rescue_pkg_noetic -o /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg
+
 /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/srv/AddTwoInts.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/srv/AddTwoInts.l: /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from rescue_pkg_noetic/AddTwoInts.srv"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from rescue_pkg_noetic/AddTwoInts.srv"
 	cd /home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv -Irescue_pkg_noetic:/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p rescue_pkg_noetic -o /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/srv
 
 /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for rescue_pkg_noetic"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ryan/RESCUE_ws_python/rescue_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp manifest code for rescue_pkg_noetic"
 	cd /home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic rescue_pkg_noetic std_msgs
 
 rescue_pkg_noetic_generate_messages_eus: rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus
 rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/Num.l
+rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/location_command.l
 rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/srv/AddTwoInts.l
 rescue_pkg_noetic_generate_messages_eus: /home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/manifest.l
 rescue_pkg_noetic_generate_messages_eus: rescue_pkg_noetic/CMakeFiles/rescue_pkg_noetic_generate_messages_eus.dir/build.make

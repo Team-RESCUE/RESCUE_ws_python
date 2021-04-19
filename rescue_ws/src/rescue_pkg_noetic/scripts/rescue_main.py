@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import String
+# from std_msgs.msg import String
+from rescue_pkg_noetic.msg import location_command
 
-def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + 'I heard %s', data.data)
+def callback(location_msg):
+    rospy.loginfo('Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
 
 def listener():
 
@@ -15,7 +16,7 @@ def listener():
     # run simultaneously.
     rospy.init_node('RESCUE_main', anonymous=True)
 
-    rospy.Subscriber('location_command', String, callback)
+    rospy.Subscriber('location_command', location_command, callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

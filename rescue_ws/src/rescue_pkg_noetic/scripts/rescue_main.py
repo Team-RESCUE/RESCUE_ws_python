@@ -20,7 +20,9 @@ def loc_callback(location_msg):
     rospy.loginfo('RESCUE: Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
 
     if location_msg.type_flag == 'c':
-        get_pivot_rotate_angles([location_msg.coord1,location_msg.coord2,location_msg.coord3])
+        pivot_angle, rotate_angle = get_pivot_rotate_angles([location_msg.coord1,location_msg.coord2,location_msg.coord3])
+
+        print("Calculated pivot angle of",pivot_angle,"deg and rotation angle of",rotate_angle,"deg")
 
         get_ext_dist(location_msg.coord1,location_msg.coord2,location_msg.coord3)
 

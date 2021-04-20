@@ -1,17 +1,98 @@
 #!/usr/bin/env python
 
+# ROS framework / messages
 import rospy
 from std_msgs.msg import String
 from rescue_pkg_noetic.msg import location_command
 from rescue_pkg_noetic.msg import co2
 
+# PRE
+# from adafruit_servokit import ServoKit
+# import adafruit_motor.servo
+# from dual_g2_hpmd_rpi import motors, MAX_SPEED
+# import busio
+# from smc import SMC
+# import time
+# import pwmio
+import math
+
 def loc_callback(location_msg):
     rospy.loginfo('RESCUE: Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
-    # return_msg = 'RETURN'
-    # rospy.loginfo('Return message sent: %s',return_msg)
-    # return_pub = rospy.Publisher('return', String, queue_size=10)
-    # return_pub.publish(return_msg)
-    # rospy.Rate(2).sleep()
+
+    if location_msg.type_flag == 'c':
+        get_pivot_rotate_angles([location_msg.coord1,location_msg.coord2,location_msg.coord3])
+
+        get_ext_dist(location_msg.coord1,location_msg.coord2,location_msg.coord3)
+
+    # PRE(location_msg.coord1,location_msg.coord2,location_msg.coord3)
+
+
+
+def get_pivot_rotate_angles(xyz_end):
+    '''
+    :param xyz_end: list of three points ie [x, y, z]
+    :return: two angles (pivot and rotation) in degrees
+    '''
+    # The step for this is to get a position vector from the base to the endpoint
+    # Then project that position vector onto the xy plane and get the angle between the x axis
+    # the projected point. This is the rotation angle
+    # Repeat the projection onto the x-z axis and get the angle between the x axis and the projected point.
+
+    pivot_angle = math.acos(xyz_end[0]/math.sqrt(xyz_end[0]**2 + xyz_end[1]**2)) * (180/math.pi)
+    rotation_angle = math.acos(xyz_end[0]/math.sqrt(xyz_end[0]**2 + xyz_end[2]**2)) * (180/math.pi)
+    return pivot_angle, rotation_angle
+
+def get_ext_dist(x,y,z):
+    print('Need to calculate extension distance for x=',x,', y=',y,', z=',z)
+
+########################################################################
+# CONFIGURATION:
+# Channel 1: (farthest to the left if power supply inputs are on top)
+# Channel 2: (to the right of channel 1)
+########################################################################
+def PRE(pivot_angle, rotate_angle, extend_length):
+    mc = SMC('/dev/ttyACM0', 115200)
+    mc.init()
+    pivot_rotate_kit = ServoKit(channels=16)
+    # The pivot servo should be connected to channel 1
+    # pivot_servo = adafruit_motor.servo.Servo(0)
+    # The rotation servo should be connected to channel 2
+    # rotation_servo = pivot_rotate_kit.servo.Servo(1)
+    # 
+    # # Set the actuation range, min_pulse, and max_pulse of the pivot servo
+    pivot_rotate_kit.servo[0].actuation_range = 600 # degrees
+    pivot_rotate_kit.servo[0].min_pulse = (1000)
+    pivot_rotate_kit.servo[0].max_pulse = (2000)
+    # Set the actuation range, min_pulse, and max_pulse of the rotation servo
+    pivot_rotate_kit.servo[1].actuation_range = 600 # degrees
+    pivot_rotate_kit.servo[1].min_pulse = (1000)
+    pivot_rotate_kit.servo[1].max_pulse = (2000)
+    # Command pivot to the required angle
+    # Command rotation to the required angle
+    pivot_rotate_kit.servo[0].angle = pivot_angle*4 # degrees
+    pivot_rotate_kit.servo[1].angle = rotate_angle # degrees
+
+
+    #########################TEST EXTENSION############################
+    # Extension line equation: y = 10x + 20
+    time_on = (extend_length - 20)/10
+    current_time = time.time()
+    
+    while time.time() - current_time < time_on:
+        mc.speed(-1100)
+        
+    mc.stop()
+    
+    time.sleep(30)
+    
+    current_time = time.time()
+    mc.init()
+    while time.time() - current_time < time_on:
+        mc.speed(1100)
+        
+    mc.stop()
+
+
 
 def init():
     rospy.init_node('RESCUE_main')#, anonymous=True)
@@ -31,6 +112,8 @@ def init():
 
     # spin() simply keeps python from exiting until this node is stopped
     # rospy.spin()
+
+
 
 def spin():
     co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
@@ -68,6 +151,7 @@ def spin():
 
     #     co2_pub.publish(co2_msg)
     #     rate.sleep()
+
 
 
 if __name__ == '__main__':

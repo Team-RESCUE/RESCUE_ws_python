@@ -37,6 +37,9 @@ def loc_callback(location_msg):
         print("Received pivot angle of",location_msg.coord1,"deg, rotation angle of",location_msg.coord2,"deg, and extension distance of",location_msg.coord3,"cm")
         # ext_dist = location_msg.coord3 / 100 # convert to cm
         # PRE(location_msg.coord1,location_msg.coord2,ext_dist)
+    else:
+        # not a valid flag, handle error
+
 
 
 

@@ -1,12 +1,11 @@
 # Import necessary packages
 import smbus
 import time
-import board
-import busio
-import adafruit_scd30
+from scd30_i2c import SCD30
 from brightpi import *
 
-def get_co2_and_LED(time_on):
+
+def get_co2_data(time_on):
     # We will need to adjust time_on based on how long the pan/tilt routine takes
     brightPi = BrightPi()
 
@@ -14,31 +13,39 @@ def get_co2_and_LED(time_on):
     brightPi.reset()
     # Create an array for the LEDS - lets start with 6
     leds = [1,4]
-    # Idea with this one is to collect the co2 data during our pan and tilt routine
-    i2c = busio.I2C(board.SCL, board.SDA)
-    scd = adafruit_scd30.SCD30(i2c)
-
-    # Create the measurement interval
-    scd.measurement_interval = 4
+    scd30 = SCD30()
+    scd30.set_measurement_interval(2)
+    
     # Set up the self calibration
-    scd.self_calibration_enabled = True
-    current_time = time.time()
+    scd30.set_auto_self_calibration(True)
+    scd30.start_periodic_measurement()    
+    time.sleep(2)
+    
     co2 = []
-    # Turn on LEDS
+    current_time = time.time()
     brightPi.set_led_on_off(leds, ON)
     while True:
-        data = scd.data_available
-        if data:
-            co2.append(scd.CO2)
-            print(scd.CO2)
-            time.sleep(0.5)
-
-        next_time = time.time()
-        if (next_time - current_time) >= time_on:
-            break
+        if scd30.get_data_ready():
+            m = scd30.read_measurement()
+            co2.append(m[0])
+            
+            if m is not None:
+                print(f"CO2: {m[0]:.2f}ppm")
+                next_time = time.time()
+                time.sleep(2)
+            else:
+                 time.sleep(0.2)
+            
+            if (next_time - current_time) >= time_on:
+                break
+                 
+    scd30.stop_periodic_measurement()
     brightPi.set_led_on_off(leds, OFF)
     return co2
-    
 
 
-co2_data = get_co2_and_LED(15)
+###################Test the CO2Sensor################################
+co2_data = get_co2_data(10)
+print(co2_data)
+
+             

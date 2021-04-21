@@ -67,8 +67,8 @@ def PRE(pivot_angle, rotate_angle, extend_length):
         
     mc.stop()
     
-    pivot_rotate_kit.servo[0].angle = 120 # degrees
-    pivot_rotate_kit.servo[1].angle = 395 # degrees
+    # pivot_rotate_kit.servo[0].angle = 120 # degrees
+    # pivot_rotate_kit.servo[1].angle = 395 # degrees
     
 
 PRE(45,315,100)

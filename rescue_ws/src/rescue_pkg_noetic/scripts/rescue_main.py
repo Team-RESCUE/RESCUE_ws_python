@@ -14,7 +14,11 @@ from rescue_pkg_noetic.msg import co2
 # from smc import SMC
 # import time
 # import pwmio
+
+# general/misc
 import math
+import numpy as np
+
 
 def loc_callback(location_msg):
     rospy.loginfo('RESCUE: Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
@@ -22,11 +26,18 @@ def loc_callback(location_msg):
     if location_msg.type_flag == 'c':
         pivot_angle, rotate_angle = get_pivot_rotate_angles([location_msg.coord1,location_msg.coord2,location_msg.coord3])
 
-        print("Calculated pivot angle of",pivot_angle,"deg and rotation angle of",rotate_angle,"deg")
+        ext_dist = get_ext_dist(location_msg.coord1,location_msg.coord2,location_msg.coord3)
 
-        get_ext_dist(location_msg.coord1,location_msg.coord2,location_msg.coord3)
+        print("Calculated pivot angle of",pivot_angle,"deg, rotation angle of",rotate_angle,"deg, and extension distance of",ext_dist,"cm")
 
-    # PRE(location_msg.coord1,location_msg.coord2,location_msg.coord3)
+        # PRE(pivot_angle,rotate_angle,ext_dist)
+
+    elif location_msg.type_flag == 'a':
+
+        print("Received pivot angle of",location_msg.coord1,"deg, rotation angle of",location_msg.coord2,"deg, and extension distance of",location_msg.coord3,"cm")
+        # ext_dist = location_msg.coord3 / 100 # convert to cm
+        # PRE(location_msg.coord1,location_msg.coord2,ext_dist)
+
 
 
 
@@ -44,8 +55,16 @@ def get_pivot_rotate_angles(xyz_end):
     rotation_angle = math.acos(xyz_end[0]/math.sqrt(xyz_end[0]**2 + xyz_end[2]**2)) * (180/math.pi)
     return pivot_angle, rotation_angle
 
+
+
 def get_ext_dist(x,y,z):
     print('Need to calculate extension distance for x=',x,', y=',y,', z=',z)
+
+    stowed_length = 15.5 / .393701 # [cm] length of arm in stowed position conv. from [in]
+
+    dist = math.sqrt(x**2 + y**2 + z**2) - stowed_length
+
+    return dist
 
 ########################################################################
 # CONFIGURATION:
@@ -128,10 +147,10 @@ def spin():
 
     if param == "a":
         print("Given angle and extension distance input")
-        print("Given coordinates:",coord1,"deg,",coord2,"deg,",coord3,"m")
+        print("Given coordinates:",coord1,"deg,",coord2,"deg,",coord3,"cm")
     elif param =="c":
         print("Given relative inertial coordinate input")
-        print("Given coordinates:",coord1,"m,",coord2,"m,",coord3,"m")
+        print("Given coordinates:",coord1,"cm,",coord2,"cm,",coord3,"cm")
     else:
         print("Given invalid type flag")
     

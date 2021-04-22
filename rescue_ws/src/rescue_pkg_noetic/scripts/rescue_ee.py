@@ -29,19 +29,17 @@ def pan_tilt_callback(pan_tilt_msg):
 	rospy.loginfo("RESCUE: Received pan/tilt command: pan",pan_angle,"deg, tilt",tilt_angle,"deg")
 
 
-def get_pan_angle(angle,zero_pw):
+def get_pan_pw(this_angle,target_angle,this_pw):
 	min_angle = 0
 	max_angle = 90
 
 	# check direction of pan
-	if angle < 0:
-		direction = -1
-		end_pw = 1000
-	else:
-		direction = 1
-		end_pw = 2000
+	direction = (this_angle - target_angle)/np.absolute(this_angle - target_angle)
+	pw_limit = 1500 + direction*500 #1000 if panning left, 2000 if right
 
-	pw_range = np.absolute(zero_pw-end_pw)
+	target_pw = this_pw + direction * (this_angle-target_angle) * (this_pw-pw_limit) / (90 + direction*target_angle)
+	
+	return target_pw
 
 
 def get_co2_data(time_on):

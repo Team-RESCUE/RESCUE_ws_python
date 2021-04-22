@@ -5,6 +5,8 @@ import rospy
 from std_msgs.msg import String
 from rescue_pkg_noetic.msg import location_command
 from rescue_pkg_noetic.msg import co2
+from rescue_pkg_noetic.msg import pan_tilt
+
 
 # PRE
 # from adafruit_servokit import ServoKit
@@ -28,16 +30,16 @@ def loc_callback(location_msg):
 
         ext_dist = get_ext_dist(location_msg.coord1,location_msg.coord2,location_msg.coord3)
 
-        print("Calculated pivot angle of",pivot_angle,"deg, rotation angle of",rotate_angle,"deg, and extension distance of",ext_dist,"cm")
+        rospy.loginfo("RESCUE: Calculated pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",pivot_angle,rotate_angle,ext_dist)
 
         # PRE(pivot_angle,rotate_angle,ext_dist)
 
     elif location_msg.type_flag == 'a':
 
-        print("Received pivot angle of",location_msg.coord1,"deg, rotation angle of",location_msg.coord2,"deg, and extension distance of",location_msg.coord3,"cm")
+        rospy.loginfo("RESCUE: Received pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",location_msg.coord1,location_msg.coord2,location_msg.coord3)
         # ext_dist = location_msg.coord3 / 100 # convert to cm
         # PRE(location_msg.coord1,location_msg.coord2,ext_dist)
-    else:
+    # else:
         # not a valid flag, handle error
 
 
@@ -123,6 +125,7 @@ def init():
 
     rospy.Subscriber('location_command', location_command, loc_callback)
 
+
 # def listener():
 
     # In ROS, nodes are uniquely named. If two nodes with the same
@@ -141,6 +144,8 @@ def init():
 
 def spin():
     co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
+
+    pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
 
     param = rospy.get_param('type')
     coord1 = rospy.get_param('coord1')
@@ -163,8 +168,16 @@ def spin():
     co2_msg.ppm = 1400
     rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
 
-    rospy.sleep(2)
+    pan_tilt_msg = pan_tilt()
+    pan_tilt_msg.pan_angle = 45
+    pan_tilt_msg.tilt_angle = 60
+    rospy.loginfo("RESCUE: Sending pan angle of %3.f deg and tilt angle of %3.f deg",pan_tilt_msg.pan_angle,pan_tilt_msg.tilt_angle)
+
+    # publish after short delay to ensure EE node is active
+    rospy.sleep(1)
     co2_pub.publish(co2_msg)
+    pan_tilt_pub.publish(pan_tilt_msg)
+
     rospy.spin()
     # rate = rospy.Rate(2) # hz
 

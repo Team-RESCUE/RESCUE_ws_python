@@ -7,5 +7,9 @@
    "CO2"
    "<LOCATION_COMMAND>"
    "LOCATION_COMMAND"
+   "<PAN_TILT>"
+   "PAN_TILT"
+   "<SENSOR_CMD>"
+   "SENSOR_CMD"
   ))
 

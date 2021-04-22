@@ -53,6 +53,7 @@ add_message_files(
    Num.msg
    location_command.msg
    co2.msg
+   pan_tilt.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -73,6 +74,36 @@ add_message_files(
    DEPENDENCIES
    std_msgs
  )
+
+## Declare catkin package
+catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES rescue_pkg_noetic
+  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+  DEPENDS system_lib
+)
+
+# Build nodes
+
+# include_directories(include ${catkin_INCLUDE_DIRS})
+
+# add_executable(rescue_main scripts/rescue_main.py)
+# target_link_libraries(rescue_main ${catkin_LIBRARIES})
+# add_dependencies(rescue_main rescue_pkg_noetic_generate_messages_cpp)
+
+# add_executable(marble_dummy scripts/marble_dummy.py)
+# target_link_libraries(marble_dummy ${catkin_LIBRARIES})
+# add_dependencies(marble_dummy rescue_pkg_noetic_generate_messages_cpp)
+
+# add_executable(rescue_ee scripts/rescue_ee.py)
+# target_link_libraries(rescue_ee ${catkin_LIBRARIES})
+# add_dependencies(rescue_ee rescue_pkg_noetic_generate_messages_cpp)
+
+
+
+################################################
+### Commented-out commands, maybe for later? ###
+################################################ 
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -103,12 +134,12 @@ add_message_files(
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
-  INCLUDE_DIRS include
-  LIBRARIES rescue_pkg_noetic
-  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
-  DEPENDS system_lib
-)
+# catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES rescue_pkg_noetic
+#  CATKIN_DEPENDS roscpp rospy std_msgs message_runtime
+#  DEPENDS system_lib
+#)
 
 ###########
 ## Build ##

@@ -113,3 +113,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/rescue_pkg_noetic" TYPE PROGRAM FILES "/home/ryan/RESCUE_ws_python/rescue_ws/build/rescue_pkg_noetic/catkin_generated/installspace/marble_dummy.py")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/rescue_pkg_noetic" TYPE FILE FILES "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/rescue.launch")
+endif()
+

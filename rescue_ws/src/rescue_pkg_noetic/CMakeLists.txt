@@ -54,6 +54,7 @@ add_message_files(
    location_command.msg
    co2.msg
    pan_tilt.msg
+   sensor_cmd.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -191,7 +192,7 @@ include_directories(
 
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
- catkin_install_python(PROGRAMS  scripts/talker.py  scripts/listener.py  scripts/rescue_main.py  scripts/marble_dummy.py
+ catkin_install_python(PROGRAMS  scripts/talker.py  scripts/listener.py  scripts/rescue_main.py  scripts/marble_dummy.py scripts/rescue_ee.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 

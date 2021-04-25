@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/Num.msg;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/location_command.msg;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/co2.msg;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg"
+messages_str = "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/Num.msg;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/location_command.msg;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/co2.msg;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg;/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg"
 services_str = "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv"
 pkg_name = "rescue_pkg_noetic"
 dependencies_str = "std_msgs"

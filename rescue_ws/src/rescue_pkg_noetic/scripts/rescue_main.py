@@ -69,9 +69,12 @@ def CO2_handler(ppm=1):
 
     co2_msg = co2()
     co2_msg.ppm = 1400
+    
+    co2_pub.publish(co2_msg)
+
     rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
 
-    co2_pub.publish(co2_msg)
+    
 
     return 1
 
@@ -83,11 +86,12 @@ def pan_tilt_handler(pan_angle=45,tilt_angle=60):
     pan_tilt_msg = pan_tilt()
     pan_tilt_msg.pan_angle = pan_angle
     pan_tilt_msg.tilt_angle = tilt_angle
-    rospy.loginfo("RESCUE: Sending pan angle of %3.f deg and tilt angle of %3.f deg",pan_tilt_msg.pan_angle,pan_tilt_msg.tilt_angle)
 
     # delay before publishing to ensure EE node is active
     rospy.sleep(1)
     pan_tilt_pub.publish(pan_tilt_msg)
+
+    rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_tilt_msg.pan_angle,pan_tilt_msg.tilt_angle)
 
     return 1
 
@@ -208,6 +212,6 @@ def spin():
 if __name__ == '__main__':
     try:
         init()
-        spin()
+        rospy.spin()
     except rospy.ROSInterruptException:
         pass

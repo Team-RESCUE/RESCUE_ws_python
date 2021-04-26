@@ -8,6 +8,8 @@ from rescue_pkg_noetic.msg import co2
 def co2_callback(co2_msg):
     min_co2 = 2000 # ppm
 
+    print("\n CO2 MESSAGE RECEIVED BY MARBLE \n")
+
     if co2_msg.ppm > min_co2:
         rospy.loginfo('MARBLE: CO2 message received: %4.2f ppm, CO2 found above threshold',co2_msg.ppm)
     else:

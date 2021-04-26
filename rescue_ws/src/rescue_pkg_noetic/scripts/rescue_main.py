@@ -46,6 +46,19 @@ def loc_callback(location_msg):
         rospy.loginfo("RESCUE: Type flag was invalid")
 
 
+    # Pan/tilt command
+
+    pan_tilt_msg = pan_tilt()
+    pan_tilt_msg.pan_angle = 45
+    pan_tilt_msg.tilt_angle = 60
+    rospy.loginfo("RESCUE: Sending pan angle of %3.f deg and tilt angle of %3.f deg",pan_tilt_msg.pan_angle,pan_tilt_msg.tilt_angle)
+
+    # publish after short delay to ensure EE node is active
+    rospy.sleep(1)
+    co2_pub.publish(co2_msg)
+    pan_tilt_pub.publish(pan_tilt_msg)
+
+
 
 
 def get_pivot_rotate_angles(xyz_end):
@@ -148,20 +161,10 @@ def spin():
     co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
 
     pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
-    
+
     co2_msg = co2()
     co2_msg.ppm = 1400
     rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
-
-    pan_tilt_msg = pan_tilt()
-    pan_tilt_msg.pan_angle = 45
-    pan_tilt_msg.tilt_angle = 60
-    rospy.loginfo("RESCUE: Sending pan angle of %3.f deg and tilt angle of %3.f deg",pan_tilt_msg.pan_angle,pan_tilt_msg.tilt_angle)
-
-    # publish after short delay to ensure EE node is active
-    rospy.sleep(1)
-    co2_pub.publish(co2_msg)
-    pan_tilt_pub.publish(pan_tilt_msg)
 
     rospy.spin()
     # rate = rospy.Rate(2) # hz

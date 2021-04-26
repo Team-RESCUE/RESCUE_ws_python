@@ -27,7 +27,7 @@ this_pan_pw = 1600
 this_tilt_pw = 1000
 
 def sensor_callback(sensor_cmd):
-	rospy.log("Sensor call received for %3.f seconds",sensor_cmd.sensing_time)
+	rospy.log("RESCUE-EE: Sensor call received for %3.f seconds",sensor_cmd.sensing_time)
 	# co2_data = get_co2_data(sensor_cmd.sensing_time)
 
 def pan_tilt_callback(pan_tilt_msg):
@@ -37,12 +37,12 @@ def pan_tilt_callback(pan_tilt_msg):
 	pan_angle = pan_tilt_msg.pan_angle
 	tilt_angle = pan_tilt_msg.tilt_angle
 
-	rospy.loginfo("RESCUE: Received pan/tilt command: pan %3.f deg, tilt %3.f deg",pan_angle,tilt_angle)
+	rospy.loginfo("RESCUE-EE Received pan/tilt command: pan %3.f deg, tilt %3.f deg",pan_angle,tilt_angle)
 
 	pan_pw = get_pan_pw(this_pan_angle,pan_angle,this_pan_pw)
 	tilt_pw = get_tilt_pw(this_tilt_angle,tilt_angle,this_tilt_pw)
 
-	rospy.loginfo("RESCUE: Corresponding pan/tilt pulsewidths are %5.f and %5.f microseconds, respectively",this_pan_pw,this_tilt_pw)
+	rospy.loginfo("RESCUE-EE: Corresponding pan/tilt pulsewidths are %5.f and %5.f microseconds, respectively",this_pan_pw,this_tilt_pw)
 
 	pan_pin = 13
 	tilt_pin = 12

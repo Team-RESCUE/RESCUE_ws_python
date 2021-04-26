@@ -23,6 +23,7 @@ import numpy as np
 
 
 def loc_callback(location_msg):
+
     # rospy.loginfo('RESCUE: Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
 
     if location_msg.type_flag == 'c':
@@ -46,18 +47,49 @@ def loc_callback(location_msg):
         rospy.loginfo("RESCUE: Type flag was invalid")
 
 
+
+    # CO2 data    
+    CO2_handler()
+    
+
     # Pan/tilt command
+    pan_tilt_handler()
+    
+    # publish after short delay to ensure EE node is active
+    # rospy.sleep(1)
+    # # co2_pub.publish(co2_msg)
+    # pan_tilt_pub.publish(pan_tilt_msg)
+
+
+
+
+def CO2_handler(ppm=1):
+
+    co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
+
+    co2_msg = co2()
+    co2_msg.ppm = 1400
+    rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
+
+    co2_pub.publish(co2_msg)
+
+    return 1
+
+
+def pan_tilt_handler(pan_angle=45,tilt_angle=60):
+
+    pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
 
     pan_tilt_msg = pan_tilt()
-    pan_tilt_msg.pan_angle = 45
-    pan_tilt_msg.tilt_angle = 60
+    pan_tilt_msg.pan_angle = pan_angle
+    pan_tilt_msg.tilt_angle = tilt_angle
     rospy.loginfo("RESCUE: Sending pan angle of %3.f deg and tilt angle of %3.f deg",pan_tilt_msg.pan_angle,pan_tilt_msg.tilt_angle)
 
-    # publish after short delay to ensure EE node is active
+    # delay before publishing to ensure EE node is active
     rospy.sleep(1)
-    co2_pub.publish(co2_msg)
     pan_tilt_pub.publish(pan_tilt_msg)
 
+    return 1
 
 
 
@@ -158,13 +190,7 @@ def init():
 
 
 def spin():
-    co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
-
-    pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
-
-    co2_msg = co2()
-    co2_msg.ppm = 1400
-    rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
+    
 
     rospy.spin()
     # rate = rospy.Rate(2) # hz

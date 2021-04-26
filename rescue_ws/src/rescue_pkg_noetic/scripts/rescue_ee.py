@@ -6,7 +6,7 @@ from std_msgs.msg import String
 from rescue_pkg_noetic.msg import pan_tilt
 from rescue_pkg_noetic.msg import sensor_cmd
 
-import pigpio # GPIO servo control
+# import pigpio # GPIO servo control
 
 # CO2 and LED interfacing
 # from brightpi import *
@@ -44,6 +44,10 @@ def pan_tilt_callback(pan_tilt_msg):
 
 	rospy.loginfo("RESCUE: Corresponding pan/tilt pulsewidths are %5.f and %5.f microseconds, respectively",this_pan_pw,this_tilt_pw)
 
+	pan_pin = 13
+	tilt_pin = 12
+	# pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin)
+
 	this_pan_angle = pan_angle
 	this_tilt_angle = tilt_angle
 	this_pan_pw = pan_pw
@@ -80,7 +84,7 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 	global this_pan_pw, this_tilt_pw # to use later	
 
 	pi = pigpio.pi()
-	pins_out = [13,12]
+	pins_out = [pan_pin,tilt_pin]
 
 	target_pws = [pan_pw,tilt_pw]
 	this_pws = [this_pan_pw,this_tilt_pw]
@@ -95,15 +99,19 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 		direction = (target_pws[i]-this_pws[i])/pw_diff
 
 		while pw_diff > 20:
-	        pi.set_servo_pulsewidth(pins_out[i],this_pws[i]+direction*pw_diff/2)
-	        this_pws[i] = pi.get_servo_pulsewidth(pins_out[i])
-	        this_pws[i] = this_pws[i] + direction*pw_diff/2
-	        # print(this_pws[i])
+			pi.set_servo_pulsewidth(pins_out[i],this_pws[i]+direction*pw_diff/2)
+			this_pws[i] = pi.get_servo_pulsewidth(pins_out[i])
+			this_pws[i] = this_pws[i] + direction*pw_diff/2
+			# print(this_pws[i])
 
-	        pw_diff = np.absolute(this_pws[i]-target_pws[i])
+			pw_diff = np.absolute(this_pws[i]-target_pws[i])
     
-    	pi.set_servo_pulsewidth(pins_out[i],target_pws[i])
+		pi.set_servo_pulsewidth(pins_out[i],target_pws[i])
 
+	this_pan_pw = this_pws[0]
+	this_tilt_pw = this_pws[1]
+
+	return 1
 
 
 def get_co2_data(time_on):

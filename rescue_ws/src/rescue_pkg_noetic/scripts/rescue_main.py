@@ -23,9 +23,10 @@ import numpy as np
 
 
 def loc_callback(location_msg):
-    rospy.loginfo('RESCUE: Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
+    # rospy.loginfo('RESCUE: Coordinates received: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
 
     if location_msg.type_flag == 'c':
+        rospy.loginfo("RESCUE: Given relative inertial coordinate input")
         pivot_angle, rotate_angle = get_pivot_rotate_angles([location_msg.coord1,location_msg.coord2,location_msg.coord3])
 
         ext_dist = get_ext_dist(location_msg.coord1,location_msg.coord2,location_msg.coord3)
@@ -36,12 +37,13 @@ def loc_callback(location_msg):
 
     elif location_msg.type_flag == 'a':
 
+        rospy.loginfo("RESCUE: Given relative angle and extension distance input")
         rospy.loginfo("RESCUE: Received pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",location_msg.coord1,location_msg.coord2,location_msg.coord3)
         # ext_dist = location_msg.coord3 / 100 # convert to cm
         # PRE(location_msg.coord1,location_msg.coord2,ext_dist)
-    # else:
+    else:
         # not a valid flag, handle error
-
+        rospy.loginfo("RESCUE: Type flag was invalid")
 
 
 
@@ -146,24 +148,7 @@ def spin():
     co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
 
     pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
-
-    param = rospy.get_param('type')
-    coord1 = rospy.get_param('coord1')
-    coord2 = rospy.get_param('coord2')
-    coord3 = rospy.get_param('coord3')
-
-
-    if param == "a":
-        print("Given angle and extension distance input")
-        print("Given coordinates:",coord1,"deg,",coord2,"deg,",coord3,"cm")
-    elif param =="c":
-        print("Given relative inertial coordinate input")
-        print("Given coordinates:",coord1,"cm,",coord2,"cm,",coord3,"cm")
-    else:
-        print("Given invalid type flag")
     
-    print("\n")
-
     co2_msg = co2()
     co2_msg.ppm = 1400
     rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)

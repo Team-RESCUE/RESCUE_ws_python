@@ -4,26 +4,30 @@ import rospy
 from std_msgs.msg import String
 from rescue_pkg_noetic.msg import location_command
 from rescue_pkg_noetic.msg import co2
+from rescue_pkg_noetic.msg import video
 
 def co2_callback(co2_msg):
     min_co2 = 2000 # ppm
-
-    print("\n CO2 MESSAGE RECEIVED BY MARBLE \n")
 
     if co2_msg.ppm > min_co2:
         rospy.loginfo('MARBLE: CO2 message received: %4.2f ppm, CO2 found above threshold',co2_msg.ppm)
     else:
         rospy.loginfo('MARBLE: CO2 message received: %4.2f ppm, CO2 not found above threshold',co2_msg.ppm)
 
-# def return_callback(return_msg):
-#     rospy.loginfo('Return message received: %s',return_msg.data)
+
+def video_callback(video_msg):
+    rospy.loginfo('MARBLE: Placeholder video message received: %s',video_msg.msg)
+
 
 def init():
     rospy.init_node('marble_dummy')#, anonymous=True)
 
     # rospy.Subscriber('return', String, return_callback)
 
-    rospy.Subscriber('co2_data',co2, co2_callback)
+    rospy.Subscriber('co2_data', co2, co2_callback)
+
+    rospy.Subscriber('video_data', video, video_callback)
+
 
 def spin():
     pub = rospy.Publisher('location_command', location_command, queue_size=10)
@@ -38,7 +42,7 @@ def spin():
     location_msg.coord2 = rospy.get_param('coord2')
     location_msg.coord3 = rospy.get_param('coord3')
 
-    rospy.sleep(2)
+    rospy.sleep(1)
     rospy.loginfo('MARBLE: Coordinates sent: %3.2f, %3.2f, %3.2f',location_msg.coord1,location_msg.coord2,location_msg.coord3)
     
     pub.publish(location_msg)

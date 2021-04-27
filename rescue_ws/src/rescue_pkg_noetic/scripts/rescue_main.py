@@ -6,6 +6,8 @@ from std_msgs.msg import String
 from rescue_pkg_noetic.msg import location_command
 from rescue_pkg_noetic.msg import co2
 from rescue_pkg_noetic.msg import pan_tilt
+from rescue_pkg_noetic.msg import sensor_cmd
+from rescue_pkg_noetic.msg import video
 
 
 # PRE
@@ -21,6 +23,10 @@ from rescue_pkg_noetic.msg import pan_tilt
 import math
 import numpy as np
 
+# publishers
+pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
+sensor_pub = rospy.Publisher('sensor_command', sensor_cmd, queue_size=10)
+video_pub = rospy.Publisher('video_data', video, queue_size=10)
 
 def loc_callback(location_msg):
 
@@ -34,14 +40,14 @@ def loc_callback(location_msg):
 
         rospy.loginfo("RESCUE: Calculated pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",pivot_angle,rotate_angle,ext_dist)
 
-        # PRE(pivot_angle,rotate_angle,ext_dist)
+        # ext_time = PRE(pivot_angle,rotate_angle,ext_dist)
 
     elif location_msg.type_flag == 'a':
 
         rospy.loginfo("RESCUE: Given relative angle and extension distance input")
         rospy.loginfo("RESCUE: Received pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",location_msg.coord1,location_msg.coord2,location_msg.coord3)
         # ext_dist = location_msg.coord3 / 100 # convert to cm
-        # PRE(location_msg.coord1,location_msg.coord2,ext_dist)
+        # ext_time = PRE(location_msg.coord1,location_msg.coord2,ext_dist)
     else:
         # not a valid flag, handle error
         rospy.loginfo("RESCUE: Type flag was invalid")
@@ -49,11 +55,21 @@ def loc_callback(location_msg):
 
 
     # CO2 data    
-    CO2_handler()
+    # CO2_handler()
     
+    # delay before publishing to ensure EE node is active
+    # rospy.sleep(2)
 
     # Pan/tilt command
     pan_tilt_handler()
+
+    # sensor command
+    ext_time = 10
+    sensor_cmd_handler(20,ext_time)
+
+    video_msg = video()
+    video_msg.msg = "Too bad this isn't a video"
+    video_pub.publish(video_msg)
     
     # publish after short delay to ensure EE node is active
     # rospy.sleep(1)
@@ -72,28 +88,39 @@ def CO2_handler(ppm=1):
     
     co2_pub.publish(co2_msg)
 
-    rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
-
-    
+    rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)    
 
     return 1
 
 
 def pan_tilt_handler(pan_angle=45,tilt_angle=60):
 
-    pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
-
     pan_tilt_msg = pan_tilt()
     pan_tilt_msg.pan_angle = pan_angle
     pan_tilt_msg.tilt_angle = tilt_angle
 
-    # delay before publishing to ensure EE node is active
-    rospy.sleep(1)
+    # rospy.sleep(.5)
     pan_tilt_pub.publish(pan_tilt_msg)
 
-    rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_tilt_msg.pan_angle,pan_tilt_msg.tilt_angle)
+    rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_angle,tilt_angle)
 
     return 1
+
+def sensor_cmd_handler(sensing_time,ext_time):
+
+    # sensor_pub = rospy.Publisher('sensor_command', sensor_cmd, queue_size=10)
+
+    sensor_msg = sensor_cmd()
+    sensor_msg.sensing_time = sensing_time
+    sensor_msg.ext_time = ext_time
+
+    rospy.sleep(.5)
+    sensor_pub.publish(sensor_msg)
+
+    rospy.loginfo("RESCUE: Sent sensing command of duration %3.f seconds", sensing_time)
+
+    return 1
+
 
 
 
@@ -114,7 +141,7 @@ def get_pivot_rotate_angles(xyz_end):
 
 
 def get_ext_dist(x,y,z):
-    print('Need to calculate extension distance for x=',x,', y=',y,', z=',z)
+    # print('Need to calculate extension distance for x=',x,', y=',y,', z=',z)
 
     stowed_length = 15.5 / .393701 # [cm] length of arm in stowed position conv. from [in]
 
@@ -169,6 +196,8 @@ def PRE(pivot_angle, rotate_angle, extend_length):
         
     mc.stop()
 
+    return time_on
+
 
 
 def init():
@@ -195,7 +224,7 @@ def init():
 
 def spin():
     
-
+    rospy.sleep(1)
     rospy.spin()
     # rate = rospy.Rate(2) # hz
 

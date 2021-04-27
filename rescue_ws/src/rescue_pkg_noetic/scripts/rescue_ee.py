@@ -5,6 +5,7 @@ import rospy
 from std_msgs.msg import String
 from rescue_pkg_noetic.msg import pan_tilt
 from rescue_pkg_noetic.msg import sensor_cmd
+from rescue_pkg_noetic.msg import co2
 
 # import pigpio # GPIO servo control
 
@@ -20,6 +21,8 @@ import sys
 
 # Global variables
 
+co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
+
 # starting angle/pulsewidth values for pan/tilt servos
 this_pan_angle = 0
 this_tilt_angle = 0
@@ -27,8 +30,18 @@ this_pan_pw = 1600
 this_tilt_pw = 1000
 
 def sensor_callback(sensor_cmd):
-	rospy.log("RESCUE-EE: Sensor call received for %3.f seconds",sensor_cmd.sensing_time)
-	# co2_data = get_co2_data(sensor_cmd.sensing_time)
+	rospy.loginfo("RESCUE-EE: Sensor call received for %3.f seconds",sensor_cmd.sensing_time)
+	# co2_data = co2_lights(sensor_cmd.sensing_time)
+
+
+	co2_msg = co2()
+	co2_msg.ppm = 1400 #co2_data
+    
+	co2_pub.publish(co2_msg)
+
+	rospy.loginfo("RESCUE-EE: CO2 data sent: %4.2f ppm",co2_msg.ppm)
+
+
 
 def pan_tilt_callback(pan_tilt_msg):
 
@@ -37,7 +50,7 @@ def pan_tilt_callback(pan_tilt_msg):
 	pan_angle = pan_tilt_msg.pan_angle
 	tilt_angle = pan_tilt_msg.tilt_angle
 
-	rospy.loginfo("RESCUE-EE Received pan/tilt command: pan %3.f deg, tilt %3.f deg",pan_angle,tilt_angle)
+	rospy.loginfo("RESCUE-EE: Received pan/tilt command: pan %3.f deg, tilt %3.f deg",pan_angle,tilt_angle)
 
 	pan_pw = get_pan_pw(this_pan_angle,pan_angle,this_pan_pw)
 	tilt_pw = get_tilt_pw(this_tilt_angle,tilt_angle,this_tilt_pw)
@@ -114,7 +127,7 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 	return 1
 
 
-def get_co2_data(time_on):
+def co2_lights(time_on):
     # We will need to adjust time_on based on how long the pan/tilt routine takes
     brightPi = BrightPi()
 
@@ -160,6 +173,8 @@ def init():
 
 	rospy.Subscriber('pan_tilt_command', pan_tilt, pan_tilt_callback)
 
+	rospy.spin()
+
 # def spin():
 # 	rospy.spin()
 
@@ -167,6 +182,6 @@ def init():
 if __name__ == '__main__':
 	try:
 		init()
-		rospy.spin()
+		# rospy.spin()
 	except rospy.ROSInterruptException:
 		pass

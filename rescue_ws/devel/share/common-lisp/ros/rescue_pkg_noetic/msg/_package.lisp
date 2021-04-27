@@ -11,5 +11,7 @@
    "PAN_TILT"
    "<SENSOR_CMD>"
    "SENSOR_CMD"
+   "<VIDEO>"
+   "VIDEO"
   ))
 

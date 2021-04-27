@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "rescue_pkg_noetic: 5 messages, 1 services")
+message(STATUS "rescue_pkg_noetic: 6 messages, 1 services")
 
 set(MSG_I_FLAGS "-Irescue_pkg_noetic:/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
@@ -40,6 +40,11 @@ add_custom_target(_rescue_pkg_noetic_generate_messages_check_deps_${_filename}
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg" NAME_WE)
 add_custom_target(_rescue_pkg_noetic_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "rescue_pkg_noetic" "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg" "std_msgs/Header"
+)
+
+get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg" NAME_WE)
+add_custom_target(_rescue_pkg_noetic_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "rescue_pkg_noetic" "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg" "std_msgs/Header"
 )
 
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv" NAME_WE)
@@ -83,6 +88,12 @@ _generate_msg_cpp(rescue_pkg_noetic
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/rescue_pkg_noetic
 )
+_generate_msg_cpp(rescue_pkg_noetic
+  "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/rescue_pkg_noetic
+)
 
 ### Generating Services
 _generate_srv_cpp(rescue_pkg_noetic
@@ -113,6 +124,8 @@ add_dependencies(rescue_pkg_noetic_generate_messages_cpp _rescue_pkg_noetic_gene
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_cpp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg" NAME_WE)
+add_dependencies(rescue_pkg_noetic_generate_messages_cpp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_cpp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_cpp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
@@ -156,6 +169,12 @@ _generate_msg_eus(rescue_pkg_noetic
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/rescue_pkg_noetic
 )
+_generate_msg_eus(rescue_pkg_noetic
+  "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/rescue_pkg_noetic
+)
 
 ### Generating Services
 _generate_srv_eus(rescue_pkg_noetic
@@ -186,6 +205,8 @@ add_dependencies(rescue_pkg_noetic_generate_messages_eus _rescue_pkg_noetic_gene
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_eus _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg" NAME_WE)
+add_dependencies(rescue_pkg_noetic_generate_messages_eus _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_eus _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_eus _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
@@ -229,6 +250,12 @@ _generate_msg_lisp(rescue_pkg_noetic
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/rescue_pkg_noetic
 )
+_generate_msg_lisp(rescue_pkg_noetic
+  "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/rescue_pkg_noetic
+)
 
 ### Generating Services
 _generate_srv_lisp(rescue_pkg_noetic
@@ -259,6 +286,8 @@ add_dependencies(rescue_pkg_noetic_generate_messages_lisp _rescue_pkg_noetic_gen
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_lisp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg" NAME_WE)
+add_dependencies(rescue_pkg_noetic_generate_messages_lisp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_lisp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_lisp _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
@@ -302,6 +331,12 @@ _generate_msg_nodejs(rescue_pkg_noetic
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/rescue_pkg_noetic
 )
+_generate_msg_nodejs(rescue_pkg_noetic
+  "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/rescue_pkg_noetic
+)
 
 ### Generating Services
 _generate_srv_nodejs(rescue_pkg_noetic
@@ -332,6 +367,8 @@ add_dependencies(rescue_pkg_noetic_generate_messages_nodejs _rescue_pkg_noetic_g
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_nodejs _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg" NAME_WE)
+add_dependencies(rescue_pkg_noetic_generate_messages_nodejs _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_nodejs _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_nodejs _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
@@ -375,6 +412,12 @@ _generate_msg_py(rescue_pkg_noetic
   "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/rescue_pkg_noetic
 )
+_generate_msg_py(rescue_pkg_noetic
+  "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/rescue_pkg_noetic
+)
 
 ### Generating Services
 _generate_srv_py(rescue_pkg_noetic
@@ -405,6 +448,8 @@ add_dependencies(rescue_pkg_noetic_generate_messages_py _rescue_pkg_noetic_gener
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_py _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg" NAME_WE)
+add_dependencies(rescue_pkg_noetic_generate_messages_py _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_py _rescue_pkg_noetic_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/srv/AddTwoInts.srv" NAME_WE)
 add_dependencies(rescue_pkg_noetic_generate_messages_py _rescue_pkg_noetic_generate_messages_check_deps_${_filename})

@@ -15,4 +15,6 @@
     (:file "_package_pan_tilt" :depends-on ("_package"))
     (:file "sensor_cmd" :depends-on ("_package_sensor_cmd"))
     (:file "_package_sensor_cmd" :depends-on ("_package"))
+    (:file "video" :depends-on ("_package_video"))
+    (:file "_package_video" :depends-on ("_package"))
   ))

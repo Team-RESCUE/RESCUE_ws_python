@@ -55,6 +55,7 @@ add_message_files(
    co2.msg
    pan_tilt.msg
    sensor_cmd.msg
+   video.msg
  )
 
 ## Generate services in the 'srv' folder

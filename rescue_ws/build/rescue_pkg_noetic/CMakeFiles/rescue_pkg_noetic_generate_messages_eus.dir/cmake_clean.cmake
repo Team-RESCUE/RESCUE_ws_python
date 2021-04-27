@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/location_command.l"
   "/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/pan_tilt.l"
   "/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/sensor_cmd.l"
+  "/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/msg/video.l"
   "/home/ryan/RESCUE_ws_python/rescue_ws/devel/share/roseus/ros/rescue_pkg_noetic/srv/AddTwoInts.l"
   "CMakeFiles/rescue_pkg_noetic_generate_messages_eus"
 )

@@ -44,6 +44,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/co2.msg"
     "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/pan_tilt.msg"
     "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/sensor_cmd.msg"
+    "/home/ryan/RESCUE_ws_python/rescue_ws/src/rescue_pkg_noetic/msg/video.msg"
     )
 endif()
 

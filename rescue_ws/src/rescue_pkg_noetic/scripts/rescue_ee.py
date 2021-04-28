@@ -57,7 +57,7 @@ def pan_tilt_callback(pan_tilt_msg):
 
 	pan_pin = 13
 	tilt_pin = 12
-	# pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin)
+	pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin)
 
 	this_pan_angle = pan_angle
 	this_tilt_angle = tilt_angle
@@ -95,7 +95,8 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 	global this_pan_pw, this_tilt_pw # to use later	
 
 	pi = pigpio.pi()
-	pins_out = [pan_pin,tilt_pin]
+	# pins_out = [pan_pin,tilt_pin]
+	pins_out = [pan_pin]
 
 	target_pws = [pan_pw,tilt_pw]
 	this_pws = [this_pan_pw,this_tilt_pw]
@@ -122,7 +123,7 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 	this_pan_pw = this_pws[0]
 	this_tilt_pw = this_pws[1]
 
-	return 1
+	# return 1
 
 
 def co2_lights(time_on):

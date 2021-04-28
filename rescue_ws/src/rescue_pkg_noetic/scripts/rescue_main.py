@@ -19,6 +19,12 @@ from smc import SMC
 import time
 import pwmio
 
+# video data
+import cv2
+from threading import Lock
+import os
+import re
+
 # general/misc
 import math
 import numpy as np
@@ -28,6 +34,85 @@ pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
 sensor_pub = rospy.Publisher('sensor_command', sensor_cmd, queue_size=10)
 video_pub = rospy.Publisher('video_data', video, queue_size=10)
 status_pub = rospy.Publisher('rescue_status', String, queue_size=10)
+
+# camera name
+DEFAULT_CAMERA_NAME = '/dev/v4l/by-id/usb-MACROSIL_AV_TO_USB2.0-video-index0'
+
+class VideoRecorder:
+    def __init__(self, cap, path_prefix):
+        self.out_filename = None
+        self.lock = Lock()
+        self.is_recording = False
+
+        self.out = None
+        self.cap = cap
+        self.record_start_time = time.time()
+        self.record_time_limit = 0
+        self.path_prefix = path_prefix
+
+    def stop_current_recording(self):
+        if self.out is not None:
+            self.out.release()
+        if self.is_recording:
+			print("Stopping recording")
+        self.is_recording = False
+
+    def start_new_recording(self, filename):
+        fourcc_code = None
+        if filename[-4:] == ".mp4":
+            fourcc_code = cv2.VideoWriter_fourcc(*"mp4v") #Previously used hardcoded fourcc_code = 0x00000021
+        elif filename[-4:] == ".avi":
+            fourcc_code = int(cap.get(cv2.CAP_PROP_FOURCC))
+        else:
+			print("Invalid file type")
+            return False
+
+
+        frame_dims = (int(self.cap.get(3)), int(self.cap.get(4)))
+
+        if(not filename.startswith('/')):
+            filename = self.path_prefix + filename
+
+        rospy.loginfo("Starting recording for " + filename)
+        if(not os.path.exists(os.path.dirname(filename))):
+            print("Path does not exist")
+            return False
+
+        self.is_recording = True
+        self.record_start_time = time.time()
+
+        self.out = cv2.VideoWriter(filename,
+                                   fourcc_code,
+                                   24,
+                                   frame_dims)
+        return True
+
+    def save_frame(self):
+        ret, frame = self.cap.read()
+        if not ret:
+			print("Capture Failed")
+            self.stop_current_recording()
+            return
+        self.out.write(frame)
+
+    def check_timeout(self):
+        if time.time() - self.record_start_time > self.record_time_limit:
+            self.stop_current_recording()
+            return False
+        return True
+
+
+    def work_in_loop(self):
+        with self.lock:
+            if self.is_recording and self.check_timeout():
+                self.save_frame()
+                return
+
+    def on_close(self):
+        with self.lock:
+            self.stop_current_recording()
+
+
 
 def loc_callback(location_msg):
 
@@ -178,27 +263,32 @@ def PRE(pivot_angle, rotate_angle, extend_length):
     return time_on
 
 
+def video_record(record_time):
+    device_num = 0  #0 captures from webcam (specifically /dev/video0)
+    if os.path.exists(DEFAULT_CAMERA_NAME):
+        device_path = os.path.realpath(DEFAULT_CAMERA_NAME)
+        device_re = re.compile("\/dev\/video(\d+)")
+        info = device_re.match(device_path)
+        if info:
+            device_num = int(info.group(1))
+
+    cap = cv2.VideoCapture(device_num)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 5000)  #Sets the camera to the maximal resolution
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 5000)  # up to 5000 x 5000
+    vr = VideoRecorder(cap, "/home/pi/Desktop/")
+    vr.start_new_recording("recording.mp4")
+    current_time = time.time()
+    while time.time() - current_time <= 35:
+        vr.save_frame()
+        
+    vr.on_close()
+    cap.release()
+
 
 def init():
     rospy.init_node('RESCUE_main')#, anonymous=True)
 
     rospy.Subscriber('location_command', location_command, loc_callback)
-
-
-# def listener():
-
-    # In ROS, nodes are uniquely named. If two nodes with the same
-    # name are launched, the previous one is kicked off. The
-    # anonymous=True flag means that rospy will choose a unique
-    # name for our 'listener' node so that multiple listeners can
-    # run simultaneously.
-    # rospy.init_node('RESCUE_main', anonymous=True)
-
-    # rospy.Subscriber('location_command', location_command, callback)
-
-    # spin() simply keeps python from exiting until this node is stopped
-    # rospy.spin()
-
 
 
 def spin():

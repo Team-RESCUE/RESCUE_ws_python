@@ -55,20 +55,20 @@ def loc_callback(location_msg):
 
 
     # CO2 data    
-    if CO2_handler():
-        rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)    
+    # if CO2_handler():
+    #     rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)    
 
     
     # delay before publishing to ensure EE node is active
     # rospy.sleep(2)
 
     # Pan/tilt command
-    if pan_tilt_handler():
+    pan_angle, tilt_angle = pan_tilt_handler():
         rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_angle,tilt_angle)
 
     # sensor command
     ext_time = 10
-    if sensor_cmd_handler(20,ext_time):
+    sensing_time = sensor_cmd_handler(20,ext_time):
         rospy.loginfo("RESCUE: Sent sensing command of duration %3.f seconds", sensing_time)
 
     video_msg = video()
@@ -83,18 +83,6 @@ def loc_callback(location_msg):
 
 
 
-def CO2_handler(ppm=1):
-
-    co2_pub = rospy.Publisher('co2_data', co2, queue_size=10)
-
-    co2_msg = co2()
-    co2_msg.ppm = 1400
-    
-    co2_pub.publish(co2_msg)
-
-    return 1
-
-
 def pan_tilt_handler(pan_angle=45,tilt_angle=60):
 
     pan_tilt_msg = pan_tilt()
@@ -104,7 +92,7 @@ def pan_tilt_handler(pan_angle=45,tilt_angle=60):
     # rospy.sleep(.5)
     pan_tilt_pub.publish(pan_tilt_msg)
     
-    return 1
+    return pan_angle, tilt_angle
 
 def sensor_cmd_handler(sensing_time,ext_time):
 
@@ -117,7 +105,7 @@ def sensor_cmd_handler(sensing_time,ext_time):
     rospy.sleep(.5)
     sensor_pub.publish(sensor_msg)
 
-    return 1
+    return sensing_time
 
 
 

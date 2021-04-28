@@ -27,6 +27,7 @@ import numpy as np
 pan_tilt_pub = rospy.Publisher('pan_tilt_command', pan_tilt, queue_size=10)
 sensor_pub = rospy.Publisher('sensor_command', sensor_cmd, queue_size=10)
 video_pub = rospy.Publisher('video_data', video, queue_size=10)
+status_pub = rospy.Publisher('rescue_status', String, queue_size=10)
 
 def loc_callback(location_msg):
 
@@ -50,26 +51,16 @@ def loc_callback(location_msg):
         ext_time = PRE(location_msg.coord1,location_msg.coord2,location_msg.coord3)
     else:
         # not a valid flag, handle error
-        rospy.loginfo("RESCUE: Type flag was invalid")
-
-
-
-    # CO2 data    
-    # if CO2_handler():
-    #     rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)    
-
-    
-    # delay before publishing to ensure EE node is active
-    # rospy.sleep(2)
+        rospy.loginfo("RESCUE: Type flag was invalid") 
 
     # Pan/tilt command
-    pan_angle, tilt_angle = pan_tilt_handler():
-        rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_angle,tilt_angle)
+    pan_angle, tilt_angle = pan_tilt_handler()
+    rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_angle,tilt_angle)
 
     # sensor command
     ext_time = 10
-    sensing_time = sensor_cmd_handler(20,ext_time):
-        rospy.loginfo("RESCUE: Sent sensing command of duration %3.f seconds", sensing_time)
+    sensing_time = sensor_cmd_handler(20,ext_time)
+    rospy.loginfo("RESCUE: Sent sensing command of duration %3.f seconds", sensing_time)
 
     video_msg = video()
     video_msg.msg = "Too bad this isn't a video"
@@ -174,6 +165,8 @@ def PRE(pivot_angle, rotate_angle, extend_length):
     mc.stop()
     
     time.sleep(30)
+
+    status_pub.publish("Retracting arm, data transmission incoming")
     
     current_time = time.time()
     mc.init()

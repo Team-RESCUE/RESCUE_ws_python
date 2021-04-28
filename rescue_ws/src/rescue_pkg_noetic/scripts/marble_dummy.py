@@ -18,6 +18,9 @@ def co2_callback(co2_msg):
 def video_callback(video_msg):
     rospy.loginfo('MARBLE: Placeholder video message received: %s',video_msg.msg)
 
+def rescue_status_callback(status_msg):
+    rospy.loginfo('MARBLE: Status message received: %s',status_msg)
+
 
 def init():
     rospy.init_node('marble_dummy')#, anonymous=True)
@@ -27,6 +30,8 @@ def init():
     rospy.Subscriber('co2_data', co2, co2_callback)
 
     rospy.Subscriber('video_data', video, video_callback)
+
+    rospy.Subscriber('rescue_status', String, rescue_status_callback)
 
 
 def spin():

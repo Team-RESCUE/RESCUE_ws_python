@@ -11,13 +11,13 @@ from rescue_pkg_noetic.msg import video
 
 
 # PRE
-# from adafruit_servokit import ServoKit
-# import adafruit_motor.servo
-# from dual_g2_hpmd_rpi import motors, MAX_SPEED
-# import busio
-# from smc import SMC
-# import time
-# import pwmio
+from adafruit_servokit import ServoKit
+import adafruit_motor.servo
+from dual_g2_hpmd_rpi import motors, MAX_SPEED
+import busio
+from smc import SMC
+import time
+import pwmio
 
 # general/misc
 import math
@@ -40,14 +40,14 @@ def loc_callback(location_msg):
 
         rospy.loginfo("RESCUE: Calculated pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",pivot_angle,rotate_angle,ext_dist)
 
-        # ext_time = PRE(pivot_angle,rotate_angle,ext_dist)
+        ext_time = PRE(pivot_angle,rotate_angle,ext_dist)
 
     elif location_msg.type_flag == 'a':
 
         rospy.loginfo("RESCUE: Given relative angle and extension distance input")
         rospy.loginfo("RESCUE: Received pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",location_msg.coord1,location_msg.coord2,location_msg.coord3)
         # ext_dist = location_msg.coord3 / 100 # convert to cm
-        # ext_time = PRE(location_msg.coord1,location_msg.coord2,ext_dist)
+        ext_time = PRE(location_msg.coord1,location_msg.coord2,ext_dist)
     else:
         # not a valid flag, handle error
         rospy.loginfo("RESCUE: Type flag was invalid")
@@ -55,17 +55,21 @@ def loc_callback(location_msg):
 
 
     # CO2 data    
-    # CO2_handler()
+    if CO2_handler():
+        rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)    
+
     
     # delay before publishing to ensure EE node is active
     # rospy.sleep(2)
 
     # Pan/tilt command
-    pan_tilt_handler()
+    if pan_tilt_handler():
+        rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_angle,tilt_angle)
 
     # sensor command
     ext_time = 10
-    sensor_cmd_handler(20,ext_time)
+    if sensor_cmd_handler(20,ext_time):
+        rospy.loginfo("RESCUE: Sent sensing command of duration %3.f seconds", sensing_time)
 
     video_msg = video()
     video_msg.msg = "Too bad this isn't a video"
@@ -88,8 +92,6 @@ def CO2_handler(ppm=1):
     
     co2_pub.publish(co2_msg)
 
-    rospy.loginfo("RESCUE: CO2 data sent: %4.2f ppm",co2_msg.ppm)    
-
     return 1
 
 
@@ -101,9 +103,7 @@ def pan_tilt_handler(pan_angle=45,tilt_angle=60):
 
     # rospy.sleep(.5)
     pan_tilt_pub.publish(pan_tilt_msg)
-
-    rospy.loginfo("RESCUE: Sent pan angle of %3.f deg and tilt angle of %3.f deg",pan_angle,tilt_angle)
-
+    
     return 1
 
 def sensor_cmd_handler(sensing_time,ext_time):
@@ -116,8 +116,6 @@ def sensor_cmd_handler(sensing_time,ext_time):
 
     rospy.sleep(.5)
     sensor_pub.publish(sensor_msg)
-
-    rospy.loginfo("RESCUE: Sent sensing command of duration %3.f seconds", sensing_time)
 
     return 1
 

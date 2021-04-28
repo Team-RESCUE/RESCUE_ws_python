@@ -31,11 +31,9 @@ this_tilt_pw = 1000
 
 def sensor_callback(sensor_cmd):
 	rospy.loginfo("RESCUE-EE: Sensor call received for %3.f seconds",sensor_cmd.sensing_time)
-	# co2_data = co2_lights(sensor_cmd.sensing_time)
-
 
 	co2_msg = co2()
-	co2_msg.ppm = 1400 #co2_data
+	co2_msg.ppm = 1400 #co2_lights(sensor_cmd.sensing_time)
     
 	co2_pub.publish(co2_msg)
 

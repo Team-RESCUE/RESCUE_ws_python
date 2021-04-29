@@ -54,8 +54,8 @@ class VideoRecorder:
         if self.out is not None:
             self.out.release()
         if self.is_recording:
-			print("Stopping recording")
-        self.is_recording = False
+            print("Stopping recording")
+            self.is_recording = False
 
     def start_new_recording(self, filename):
         fourcc_code = None
@@ -170,7 +170,7 @@ def pan_tilt_handler(pan_angle=45,tilt_angle=60):
     
     return pan_angle, tilt_angle
 
-    
+
 
 def sensor_cmd_handler(sensing_time,ext_time):
 

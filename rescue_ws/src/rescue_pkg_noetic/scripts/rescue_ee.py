@@ -14,6 +14,7 @@ from brightpi import *
 from scd30_i2c import SCD30
 import adafruit_bno055
 import busio
+import board
 
 
 # general/misc
@@ -35,7 +36,7 @@ def sensor_callback(sensor_cmd):
 	rospy.loginfo("RESCUE-EE: Sensor call received for %3.f seconds",sensor_cmd.sensing_time)
 
 	co2_msg = co2()
-	co2_msg.ppm = 1400 #co2_lights(sensor_cmd.sensing_time)
+	co2_msg.ppm = co2_lights(sensor_cmd.sensing_time)
     
 	co2_pub.publish(co2_msg)
 
@@ -60,7 +61,7 @@ def pan_tilt_callback(pan_tilt_msg):
 	pan_pin = 13
 	tilt_pin = 12
 	# pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin)
-	pan_loop(pan_pw,pan_pin)
+	# pan_loop(pan_pw,pan_pin)
 
 	this_pan_angle = pan_angle
 	this_tilt_angle = tilt_angle
@@ -100,6 +101,8 @@ def pan_loop(pan_pw,pan_pin):
 	pi = pigpio.pi()
 
 	this_pw = this_pan_pw
+
+	rospy.info("RESCUE-EE: Pan pulsewidth is %4.f and pan pin is %2.f",pan_pw,pan_pin)
 
 	pi.set_mode(pan_pin,pigpio.OUTPUT)
 	pi.set_servo_pulsewidth(pan_pin,pan_pw)
@@ -181,7 +184,7 @@ def co2_lights(time_on):
     brightPi.set_led_on_off(leds, ON)
     while True:
         ahrs.append(sensor.euler)
-        sleep(1)
+        time.sleep(1)
         if scd30.get_data_ready():
             m = scd30.read_measurement()
             co2.append(m[0])
@@ -197,7 +200,9 @@ def co2_lights(time_on):
                  
     scd30.stop_periodic_measurement()
     brightPi.set_led_on_off(leds, OFF)
-    return co2, ahrs
+
+    co2_mean = np.mean(co2)
+    return co2_mean, ahrs
 
 
 def init():

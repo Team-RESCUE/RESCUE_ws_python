@@ -59,7 +59,8 @@ def pan_tilt_callback(pan_tilt_msg):
 
 	pan_pin = 13
 	tilt_pin = 12
-	pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin)
+	# pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin)
+	pan_loop(pan_pw,pan_pin)
 
 	this_pan_angle = pan_angle
 	this_tilt_angle = tilt_angle
@@ -92,6 +93,30 @@ def get_tilt_pw(this_angle,target_angle,this_pw):
 	
 	return target_pw
 
+
+def pan_loop(pan_pw,pan_pin):
+	global this_pan_pw
+
+	pi = pigpio.pi()
+
+	this_pw = this_pan_pw
+
+	pi.set_mode(pan_pin,pigpio.OUTPUT)
+	pi.set_servo_pulsewidth(pan_pin,pan_pw)
+
+	pw_diff = np.absolute(pan_pw-this_pw)
+	direction = (pan_pw-this_pw)/pw_diff
+
+	while pw_diff > 20:
+		pi.set_servo_pulsewidth(pan_pin,this_pw+direction*pw_diff/2)
+		this_pw = pi.get_servo_pulsewidth(pan_pin)
+		pw_diff = np.absolute(pan_pw-this_pw)
+
+	pi.set_servo_pulsewidth(pan_pin,pan_pw)
+
+	this_pan_pw = this_pw
+
+
 def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 
 	global this_pan_pw, this_tilt_pw # to use later	
@@ -115,7 +140,7 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 		while pw_diff > 20:
 			pi.set_servo_pulsewidth(pins_out[i],this_pws[i]+direction*pw_diff/2)
 			this_pws[i] = pi.get_servo_pulsewidth(pins_out[i])
-			this_pws[i] = this_pws[i] + direction*pw_diff/2
+			# this_pws[i] = this_pws[i] + direction*pw_diff/2
 			# print(this_pws[i])
 
 			pw_diff = np.absolute(this_pws[i]-target_pws[i])

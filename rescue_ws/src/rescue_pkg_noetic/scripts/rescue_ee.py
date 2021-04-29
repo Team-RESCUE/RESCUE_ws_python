@@ -35,7 +35,7 @@ def sensor_callback(sensor_cmd):
 	rospy.loginfo("RESCUE-EE: Sensor call received for %3.f seconds",sensor_cmd.sensing_time)
 
 	co2_msg = co2()
-	co2_msg.ppm = 1400 #co2_lights(sensor_cmd.sensing_time)
+	co2_msg.ppm = 1400 #co2_lights_ahrs(sensor_cmd.sensing_time)
     
 	co2_pub.publish(co2_msg)
 
@@ -152,8 +152,25 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 
 	# return 1
 
+def pan_sequence(pan_pin):
+	pan_angles = [-45, 0, 45]
+	for i in range(len(pan_angles)):
+		pan_pw = get_pan_pw(pan_angles[i],pan_angles[i],this_pan_pw)
+		pan_loop(pan_pw,pan_pin)
 
-def co2_lights(time_on):
+
+def pan_tilt_sequence(pan_pin, tilt_pin):
+	pan_angles = [-45, 0, 45]
+	tilt_angles = [0,-45]
+	for i in range(len(pan_angles)):
+		pan_pw = get_pan_pw(this_pan_angle, pan_angles[i], this_pan_pw)
+		for j in range(len(tilt_angles)):
+			tilt_pw = get_tilt_pw(this_tilt_angle, tilt_angles[j], this_tilt_pw)
+			pan_tilt_loop(pan_pw, tilt_pw, pan_pin, tilt_pin)
+
+
+
+def co2_lights_ahrs(time_on):
     ########################### LED BEGIN ########################################
     # We will need to adjust time_on based on how long the pan/tilt routine takes
     brightPi = BrightPi()

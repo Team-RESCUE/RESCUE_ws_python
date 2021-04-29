@@ -10,8 +10,10 @@ from rescue_pkg_noetic.msg import co2
 # import pigpio # GPIO servo control
 
 # CO2 and LED interfacing
-# from brightpi import *
-# from scd30_i2c import SCD30
+from brightpi import *
+from scd30_i2c import SCD30
+import adafruit_bno055
+import busio
 
 
 # general/misc
@@ -126,13 +128,20 @@ def pan_tilt_loop(pan_pw,tilt_pw,pan_pin,tilt_pin):
 
 
 def co2_lights(time_on):
+    ########################### LED BEGIN ########################################
     # We will need to adjust time_on based on how long the pan/tilt routine takes
     brightPi = BrightPi()
-
     # Reset the brightpi to ensure it's in its original state
     brightPi.reset()
     # Create an array for the LEDS - lets start with 6
     leds = [1,4]
+    
+    ########################### AHRS BEGIN #########################################
+    i2c = busio.I2C(board.SCL, board.SDA)
+    sensor = adafruit_bno055.BNO055_I2C(i2c)
+    ahrs = []
+  
+    ########################### CO2 BEGIN ##########################################
     scd30 = SCD30()
     scd30.set_measurement_interval(2)
     
@@ -145,12 +154,13 @@ def co2_lights(time_on):
     current_time = time.time()
     brightPi.set_led_on_off(leds, ON)
     while True:
+        ahrs.append(sensor.euler)
+        sleep(1)
         if scd30.get_data_ready():
             m = scd30.read_measurement()
             co2.append(m[0])
             
             if m is not None:
-                # print(f"CO2: {m[0]:.2f}ppm")
                 next_time = time.time()
                 time.sleep(2)
             else:
@@ -161,7 +171,7 @@ def co2_lights(time_on):
                  
     scd30.stop_periodic_measurement()
     brightPi.set_led_on_off(leds, OFF)
-    return co2
+    return co2, ahrs
 
 
 def init():

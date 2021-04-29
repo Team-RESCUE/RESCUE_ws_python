@@ -64,7 +64,7 @@ class VideoRecorder:
         elif filename[-4:] == ".avi":
             fourcc_code = int(cap.get(cv2.CAP_PROP_FOURCC))
         else:
-			print("Invalid file type")
+            # print("Invalid file type")
             return False
 
 

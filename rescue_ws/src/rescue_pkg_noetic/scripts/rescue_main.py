@@ -170,6 +170,8 @@ def pan_tilt_handler(pan_angle=45,tilt_angle=60):
     
     return pan_angle, tilt_angle
 
+    
+
 def sensor_cmd_handler(sensing_time,ext_time):
 
     # sensor_pub = rospy.Publisher('sensor_command', sensor_cmd, queue_size=10)

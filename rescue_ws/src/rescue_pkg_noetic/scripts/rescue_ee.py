@@ -7,7 +7,7 @@ from rescue_pkg_noetic.msg import pan_tilt
 from rescue_pkg_noetic.msg import sensor_cmd
 from rescue_pkg_noetic.msg import co2
 
-# import pigpio # GPIO servo control
+import pigpio # GPIO servo control
 
 # CO2 and LED interfacing
 # from brightpi import *

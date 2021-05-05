@@ -134,7 +134,7 @@ def loc_callback(location_msg):
         rospy.loginfo("RESCUE: Given relative angle and extension distance input")
         rospy.loginfo("RESCUE: Received pivot angle of %3.f deg, rotation angle of %3.f deg, and extension distance of %3.1f cm",location_msg.coord1,location_msg.coord2,location_msg.coord3)
         # ext_dist = location_msg.coord3 / 100 # convert to cm
-        ext_time = PRE(location_msg.coord1,location_msg.coord2,location_msg.coord3)
+        # ext_time = PRE(location_msg.coord1,location_msg.coord2,location_msg.coord3)
     else:
         # not a valid flag, handle error
         rospy.loginfo("RESCUE: Type flag was invalid") 

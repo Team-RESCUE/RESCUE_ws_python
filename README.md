@@ -47,8 +47,8 @@ This launches the `marble_dummy.launch` file, which in turn launches the `marble
 ### Other Asides
 * The video data transfer automation functionality is still being finalized at the moment. A commit will be made to this repository shortly with that functionality integrated and documented in comments.
 
-#### Node Auto-Start Setup 
-##### (for Pi Zero W upon receipt of project)
+### Node Auto-Start Setup 
+#### (for Pi Zero W upon receipt of project)
 
 1. ssh into the Pi from any machine on the same local network
 2. From the home directory:
